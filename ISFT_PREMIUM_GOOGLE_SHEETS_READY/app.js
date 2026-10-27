@@ -1,0 +1,12 @@
+// Google Apps Script Web App manzilini ulash uchun README.md ko‘rsatmasiga qarang.
+const SHEETS_ENDPOINT = ''; // Apps Script deployment URL ni shu yerga qo‘ying
+async function submitData(type, data){
+  const item={type,...data,createdAt:new Date().toISOString()};
+  if(SHEETS_ENDPOINT){const response=await fetch(SHEETS_ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(item)});if(!response.ok)throw Error('Server javob bermadi');return 'Google Sheets xizmatiga so‘rov yuborildi. Natijani jadvalda tekshiring.';}
+  const key='isft_'+type;const list=JSON.parse(localStorage.getItem(key)||'[]');list.push(item);localStorage.setItem(key,JSON.stringify(list));return 'Demo rejim: ma’lumot ushbu brauzerda saqlandi. Google Sheets hali ulanmagan.';
+}
+function showStatus(id,msg,err=false){const el=document.getElementById(id);if(el){el.className=err?'error':'success';el.textContent=msg}}
+document.getElementById('registrationForm')?.addEventListener('submit',async e=>{e.preventDefault();const form=e.currentTarget;const data=Object.fromEntries(new FormData(form));delete data.consent;const btn=form.querySelector('button[type=submit]');btn.disabled=true;try{showStatus('registrationStatus',await submitData('registration',data));form.reset()}catch(err){showStatus('registrationStatus','Yuborishda xato: '+err.message,true)}finally{btn.disabled=false}});
+document.getElementById('surveyForm')?.addEventListener('submit',async e=>{e.preventDefault();const form=e.currentTarget;const data=Object.fromEntries(new FormData(form));delete data.consent;data.surveyId=form.dataset.surveyId||'1';data.surveyTitle=form.dataset.surveyTitle||'So‘rovnoma';const btn=form.querySelector('button[type=submit]');btn.disabled=true;try{showStatus('surveyStatus',await submitData('survey',data));form.reset()}catch(err){showStatus('surveyStatus','Yuborishda xato: '+err.message,true)}finally{btn.disabled=false}});
+let slideIndex=0;function moveSlide(delta){const slides=[...document.querySelectorAll('.slide')];if(!slides.length)return;slides[slideIndex].classList.remove('show');slideIndex=(slideIndex+delta+slides.length)%slides.length;slides[slideIndex].classList.add('show');document.getElementById('slideNumber').textContent=`${slideIndex+1} / ${slides.length}`}
+document.addEventListener('keydown',e=>{if(document.querySelector('.slide')){if(e.key==='ArrowRight')moveSlide(1);if(e.key==='ArrowLeft')moveSlide(-1)}});

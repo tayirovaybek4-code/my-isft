@@ -1,0 +1,16 @@
+ISFT PREMIUM — GOOGLE SHEETS ULASH
+
+Google Sheets ID kodga kiritildi. Sizning jadvalingiz: https://docs.google.com/spreadsheets/d/11RWlQZ4ApNYJCSXtbKM4VVM3DGc2UOTRmxFV00o-za0/edit
+
+1. Kompyuterda ushbu jadvalni oching. Extensions (Расширения) > Apps Script.
+2. Code.gs ichidagi eski kodni o‘chirib, google-apps-script.gs faylidagi kodni to‘liq qo‘ying. Save.
+3. Deploy (Развернуть) > New deployment > Web app. Execute as: Me. Who has access: Anyone. Deploy.
+4. Google ruxsatlarini tasdiqlang. /exec bilan tugaydigan Web App URL ni nusxalang.
+5. Saytning app.js faylida const SHEETS_ENDPOINT = ''; qatoridagi ikki tirnoq ichiga /exec URL ni qo‘ying. Saqlang.
+6. Saytni Live Server orqali oching. Test ro‘yxatdan o‘tish va 1-2-so‘rovnomani yuboring, Google Sheets ichida yangi qatorlarni tekshiring.
+
+Hozircha Sheets bilan ulanish tugallanmagan: Web App URL hali yo‘q. URL kiritilmaguncha sayt faqat demo rejimda brauzer localStorage xotirasiga yozadi.
+
+Varaq nomlari: Royxatdan_otganlar, Sorovnoma_1, Sorovnoma_2. Qolgan 3 ta so‘rovnoma keyin avtomatik ochilishi mumkin.
+
+OGOHLANTIRISH: Web App ommaga ochiq endpoint bo‘ladi; real talabalar ma’lumotlarini yig‘ishdan oldin spamga qarshi himoya, maxfiylik siyosati va ruxsatlar masalasini hal qiling.
